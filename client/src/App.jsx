@@ -1,17 +1,20 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import Navbar from './components/Navbar';
-import Home from './pages/Home';
-import Dashboard from './pages/Dashboard';
-import Jobs from './pages/Jobs';
-import JobDetails from './pages/JobDetails';
-import Resources from './pages/Resources';
-import Profile from './pages/Profile';
-import AILab from './pages/AILab';
-import Contact from './pages/Contact';
-import Login from './pages/Auth/Login';
-import Register from './pages/Auth/Register';
-import PrivateRoute from './components/PrivateRoute';
+// client/src/App.jsx
+import React from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+
+import { AuthProvider } from "./context/AuthContext";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import Dashboard from "./pages/Dashboard";
+import Jobs from "./pages/Jobs";
+import JobDetails from "./pages/JobDetails";
+import Resources from "./pages/Resources";
+import Profile from "./pages/Profile";
+import AILab from "./pages/AILab";
+import Contact from "./pages/Contact";
+import Login from "./pages/Auth/Login";
+import Register from "./pages/Auth/Register";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
@@ -19,10 +22,19 @@ function App() {
       <Router>
         <div className="min-h-screen bg-slate-50">
           <Navbar />
+
           <Routes>
+            {/* Public routes */}
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/jobs" element={<Jobs />} />
+            <Route path="/jobs/:id" element={<JobDetails />} />
+            <Route path="/resources" element={<Resources />} />
+            <Route path="/ai-lab" element={<AILab />} />
+            <Route path="/contact" element={<Contact />} />
+
+            {/* Protected routes */}
             <Route
               path="/dashboard"
               element={
@@ -31,9 +43,6 @@ function App() {
                 </PrivateRoute>
               }
             />
-            <Route path="/jobs" element={<Jobs />} />
-            <Route path="/jobs/:id" element={<JobDetails />} />
-            <Route path="/resources" element={<Resources />} />
             <Route
               path="/profile"
               element={
@@ -42,8 +51,8 @@ function App() {
                 </PrivateRoute>
               }
             />
-            <Route path="/ai-lab" element={<AILab />} />
-            <Route path="/contact" element={<Contact />} />
+
+            {/* Fallback - redirect unknown routes to home */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>
@@ -53,4 +62,3 @@ function App() {
 }
 
 export default App;
-

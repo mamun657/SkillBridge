@@ -17,6 +17,8 @@
     "learning"
   ],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "lottie-react": "^2.4.1"
+  }
 }
-
