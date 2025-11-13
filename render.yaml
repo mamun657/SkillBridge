@@ -3,7 +3,7 @@ services:
     name: skillbridge-backend
     env: node
     buildCommand: npm install --prefix server
-    startCommand: npm start --prefix server
+    startCommand: node server/src/index.js
     envVars:
       - key: NODE_ENV
         value: production
