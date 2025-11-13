@@ -6,10 +6,14 @@ const SearchBar = ({ value, onChange, placeholder = 'Search...' }) => {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+        className="w-full pl-12 pr-4 py-3 rounded-xl text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-[#6757F5]/40 focus:border-[#6757F5]"
+        style={{
+          boxShadow: '0 0 8px rgba(103, 87, 245, 0.4)',
+          border: '2px solid #6757F5'
+        }}
       />
       <svg
-        className="absolute left-3 top-2.5 h-5 w-5 text-gray-400"
+        className="absolute left-4 top-3.5 h-5 w-5 text-[#6757F5]"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"
