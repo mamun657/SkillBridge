@@ -4,7 +4,7 @@ SkillBridge is a MERN stack application that connects users' skills with job opp
 
 ## Project Overview
 
-SkillBridge helps users discover career opportunities and learning resources based on their skills and preferences. The platform features user authentication, profile management, job listings, learning resources, and a personalized dashboard with recommendations.
+SkillBridge helps users discover career opportunities and learning resources based on their skills and preferences. The platform features user authentication, profile management, job listings, learning resources, and a personalized dashboard with recommendations. 
 
 ## Tech Stack
 
