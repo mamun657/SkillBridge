@@ -207,6 +207,15 @@ const seedDatabase = async () => {
     // Seed resources
     const resources = [
       {
+        title: 'Programming Hero – Complete Web Development Course',
+        platform: 'Programming Hero',
+        url: 'https://www.programming-hero.com/',
+        relatedSkills: ['Web Development', 'JavaScript', 'MERN Stack'],
+        costType: 'Paid',
+        price: 29.99,
+        description: 'Learn full-stack web development with hands-on projects, JavaScript mastery, backend APIs, and modern tools.'
+      },
+      {
         title: 'Complete React Developer Course',
         platform: 'Udemy',
         url: 'https://www.udemy.com/react-course',

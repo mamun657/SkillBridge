@@ -4,10 +4,13 @@ import Card from '../components/Card';
 import SearchBar from '../components/SearchBar';
 import Tag from '../components/Tag';
 import SkillPill from '../components/SkillPill';
+import CertificateButton from '../components/CertificateButton';
+import { useAuth } from '../context/AuthContext';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
 
 const Resources = () => {
+  const { user } = useAuth();
   const [resources, setResources] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -30,7 +33,19 @@ const Resources = () => {
       if (filters.skill) params.append('skill', filters.skill);
 
       const response = await axios.get(`${API_URL}/api/resources?${params}`);
-      setResources(response.data.resources || []);
+      const data = response.data.resources || [];
+      const targetTitle = 'Programming Hero – Complete Web Development Course';
+      const prioritizedResources = [];
+
+      data.forEach((resource) => {
+        if (resource.title?.trim() === targetTitle) {
+          prioritizedResources.unshift(resource);
+        } else {
+          prioritizedResources.push(resource);
+        }
+      });
+
+      setResources(prioritizedResources);
     } catch (error) {
       console.error('Fetch resources error:', error);
     } finally {
@@ -108,6 +123,14 @@ const Resources = () => {
                 >
                   Visit →
                 </a>
+              </div>
+              <div className="mt-4 flex justify-end">
+                <CertificateButton
+                  userId={user?._id || 'guest'}
+                  name={user?.fullName || 'SkillBridge Learner'}
+                  courseId={resource._id}
+                  courseName={resource.title}
+                />
               </div>
             </Card>
           ))

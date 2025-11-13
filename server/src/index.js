@@ -11,6 +11,11 @@ import dashboardRoutes from './routes/dashboard.js';
 import aiRoutes from './routes/ai.js';
 import webhookRoutes from './routes/webhooks.js';
 import seedRoutes from './routes/seed.js';
+import parseResumeRoute from './routes/parseResume.js';
+import recommendationsRoute from './routes/recommendations.js';
+import questionsRoute from './routes/questions.js';
+import certificateRoute from './routes/certificate.js';
+import path from 'path';
 
 dotenv.config();
 
@@ -34,6 +39,7 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/public', express.static(path.join(process.cwd(), 'public')));
 
 // Logging middleware for dev
 if (process.env.NODE_ENV === 'development') {
@@ -52,6 +58,10 @@ app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/webhooks', webhookRoutes);
 app.use('/api/seed', seedRoutes);
+app.use('/api/parse-resume', parseResumeRoute);
+app.use('/api/recommendations', recommendationsRoute);
+app.use('/api/generate-questions', questionsRoute);
+app.use('/api/issue-certificate', certificateRoute);
 
 // Health check
 app.get('/api/health', (req, res) => {

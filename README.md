@@ -42,12 +42,22 @@ SkillBridge helps users discover career opportunities and learning resources bas
    npm install
    ```
 
+   (If you pulled only the new files) install the AI helpers:
+   ```bash
+   npm install multer pdf-parse pdfkit nodemailer
+   ```
+
    Create a `.env` file in the `server` directory:
    ```env
    MONGO_URI=mongodb://localhost:27017/skillbridge
    JWT_SECRET=supersecret_jwt_key_change_in_production
    PORT=4000
    NODE_ENV=development
+   SMTP_HOST=smtp.example.com
+   SMTP_PORT=587
+   SMTP_USER=your-smtp-user
+   SMTP_PASS=your-smtp-password
+   RESUME_PARSER_KEY=replace-with-api-key-if-needed
    ```
 
    For MongoDB Atlas, use:
@@ -83,7 +93,7 @@ SkillBridge helps users discover career opportunities and learning resources bas
    This will create:
    - 1 demo user (email: `test@example.com`, password: `password123`)
    - 18 job entries
-   - 20 learning resources
+   - 21 learning resources
 
 ### Running the Application
 
@@ -118,6 +128,53 @@ The application will be available at:
 After seeding, you can login with:
 - **Email**: `test@example.com`
 - **Password**: `password123`
+
+## Resource Illustration Prompts
+
+Use the following prompts (each includes a bottom-right CTA button with a white cursor) when generating placeholder illustrations for resource cards:
+
+1. Programming Hero – Complete Web Development Course  
+   Create a modern vector illustration representing full-stack web development for the platform “Programming Hero”. Include JavaScript, MERN stack symbols, browser windows, and code blocks. Use a vibrant gradient background inspired by Programming Hero’s blue/purple/pink theme. Add a rounded CTA-style button at the bottom-right with a white cursor hovering over it. No text.
+2. AWS Cloud Practitioner  
+   Create a modern vector illustration representing AWS Cloud Practitioner. Include cloud servers, AWS-style orange accents, and cloud icons. Use a blue-purple gradient background. Add a small rounded button at the bottom-right with a white cursor hovering over it. No text.
+3. Advanced React Patterns  
+   Create a clean vector illustration representing advanced React development. Include the React atom, UI components, and code blocks. Soft blue-purple gradient background. Add a rounded interactive button at the bottom-right with a white cursor hovering over it. No text.
+4. Communication Skills Workshop  
+   Create a friendly vector illustration showing communication and teamwork. Include chat bubbles and two people talking. Soft gradient background. Add a rounded CTA-style button at the bottom-right with a white cursor hovering over it. No text.
+5. Complete React Developer Course (Udemy)  
+   Create a modern vector illustration for React development. Include the React logo, code snippets, and abstract UI shapes. Blue and purple gradient background. Include a rounded button at the bottom-right with a white mouse cursor hovering on it. No text.
+6. Digital Marketing Essentials (Google)  
+   Create a flat vector illustration representing digital marketing. Include SEO icons, charts, megaphone, and marketing symbols. Add a bottom-right rounded button with a white cursor hovering over it. No text.
+7. Docker & Containerization  
+   Create a modern vector illustration for Docker and containerization. Include container blocks, Docker whale elements, and DevOps icons. Blue gradient background. Add a rounded button bottom-right with a white cursor hovering on it. No text.
+8. Express.js API Development  
+   Create a vector illustration representing Express.js APIs. Include servers, REST API icons, and JS-inspired shapes. Gradient background. Add a CTA button bottom-right with a white cursor hovering over it. No text.
+9. Full Stack Development Bootcamp (Odin Project)  
+   Create a modern illustration representing full stack web development. Include browser windows, server icons, and MERN shapes. Gradient background with soft depth. Add a rounded button bottom-right with a white cursor hovering. No text.
+10. Git & Version Control  
+    Create a vector illustration for Git and version control. Include branching diagrams, commit icons, and repository visuals. Orange-blue gradient background. Add a rounded button bottom-right with a white cursor hovering. No text.
+11. GraphQL API Development  
+    Create a minimal vector illustration for GraphQL development. Include the GraphQL geometric logo, linked nodes, and API visuals. Soft gradient background. Add a rounded button at bottom-right with a white cursor hovering. No text.
+12. HTML & CSS Basics  
+    Create a vector illustration for HTML and CSS. Include a browser window, layout grid, and styling blocks. Light gradient background. Add a bottom-right rounded button with a white cursor hovering. No text.
+13. JavaScript: The Complete Guide  
+    Create a modern vector illustration representing JavaScript learning. Include JS icons, brackets, and code visuals. Yellow-blue gradient background. Add a rounded CTA button bottom-right with a white cursor hovering. No text.
+14. MongoDB University  
+    Create a vector illustration for MongoDB learning. Include green database icons, leaf symbol, and NoSQL shapes. Green-blue gradient background. Add a rounded button bottom-right with a white cursor hovering. No text.
+15. Node.js Masterclass  
+    Create a clean illustration representing Node.js backend development. Include Node.js hexagon, server icons, and Express symbols. Green-blue gradient background. Add a rounded button bottom-right with a white cursor hovering. No text.
+16. Python for Data Science  
+    Create a modern data-science themed vector illustration. Include Python colors, charts, graphs, and data visuals. Soft gradient background. Add a rounded button bottom-right with a white cursor hovering. No text.
+17. SQL Fundamentals  
+    Create a vector illustration representing SQL databases. Include stacked database icons, tables, and query diagrams. Blue gradient background. Add a rounded interactive button at bottom-right with a white cursor hovering. No text.
+18. Testing with Jest  
+    Create a flat illustration for Jest testing. Include checkmarks, code snippets, and red accents. Soft gradient background. Add a rounded button bottom-right with a white cursor hovering. No text.
+19. TypeScript for JavaScript Developers  
+    Create a vector illustration representing TypeScript. Include TS-inspired blocks, typing icons, and code shapes. Blue gradient background. Add a bottom-right rounded button with a white cursor hovering. No text.
+20. UI/UX Design Principles  
+    Create a modern illustration for UI/UX design. Include wireframes, UI cards, and design shapes. Purple-blue gradient background. Add a rounded CTA button at the bottom-right with a white cursor hovering. No text.
+21. Web Accessibility (a11y)  
+    Create a clean vector illustration representing web accessibility. Include accessibility icons, inclusive design shapes, and universal interface symbols. Soft gradient background. Add a rounded button at the bottom-right with a white cursor hovering. No text.
 
 ## Build & Deploy to Render
 
@@ -256,6 +313,12 @@ SkillBridge/
 ### Webhooks (Part 2 - Placeholders)
 - `POST /api/webhooks/n8n` - n8n webhook handler
 
+### AI & Automation (New)
+- `POST /api/parse-resume` — Upload PDF resume and extract skills using keyword matching
+- `GET /api/recommendations?skills=react,html` — Rule-based job scoring with explainability
+- `POST /api/generate-questions` — Generate five interview Q&A pairs for a role
+- `POST /api/issue-certificate` — Create PDF micro-certificate and return public URL
+
 ### Development
 - `POST /api/seed` - Seed database (dev only)
 
@@ -267,6 +330,11 @@ The following files and routes are prepared for Part 2 AI and n8n integration:
 - `server/src/services/ai/resumeParser.js` - Resume parsing with OpenAI/ML
 - `server/src/services/ai/jobMatcher.js` - AI-powered job matching
 - `server/src/routes/ai.js` - AI API routes
+- `server/src/routes/parseResume.js` - PDF parsing entry point
+- `server/src/routes/recommendations.js` - Rule/embedding hybrid recommendation API
+- `server/src/routes/questions.js` - Interview question generator
+- `server/src/routes/certificate.js` - Micro-certificate issuance
+- `server/mcp/certificateGenerator.js` - PDFKit certificate helper (drops files in `public/certs`)
 
 ### n8n Integration
 - `server/src/services/n8n/webhookHandler.js` - n8n webhook processing
@@ -278,6 +346,16 @@ All placeholder files contain `// TODO: Part 2` comments indicating where to imp
 - ML models for job matching
 - n8n workflow triggers and handlers
 - Vector database integration for semantic search
+
+### n8n Quickstart (Docker)
+```bash
+docker run -it --rm --name n8n \
+  -p 5678:5678 \
+  -e N8N_BASIC_AUTH_ACTIVE=true \
+  -e N8N_BASIC_AUTH_USER=user \
+  -e N8N_BASIC_AUTH_PASSWORD=pass \
+  n8nio/n8n
+```
 
 ## Features
 
@@ -305,6 +383,11 @@ MONGO_URI=mongodb://localhost:27017/skillbridge
 JWT_SECRET=your_secret_key
 PORT=4000
 NODE_ENV=development
+SMTP_HOST=smtp.example.com
+SMTP_PORT=587
+SMTP_USER=your-smtp-user
+SMTP_PASS=your-smtp-password
+RESUME_PARSER_KEY=replace-with-api-key-if-needed
 ```
 
 ### Frontend (.env)
@@ -329,6 +412,26 @@ For production, set `VITE_API_URL` to your deployed backend URL.
 - Ensure Node.js version is 16+
 - Delete `node_modules` and reinstall dependencies
 - Check for missing environment variables
+
+## Manual API Testing
+
+```bash
+# Parse resume (expects resume.pdf in current directory)
+curl -F "resume=@resume.pdf" http://localhost:4000/api/parse-resume
+
+# Get explainable recommendations
+curl "http://localhost:4000/api/recommendations?skills=react,html"
+
+# Generate interview questions
+curl -X POST http://localhost:4000/api/generate-questions \
+  -H "Content-Type: application/json" \
+  -d '{"jobTitle":"Frontend Developer","skills":["react","javascript","css"]}'
+
+# Issue a micro-certificate
+curl -X POST http://localhost:4000/api/issue-certificate \
+  -H "Content-Type: application/json" \
+  -d '{"userId":"user-001","name":"SkillBridge Learner","courseId":"course-101","courseName":"React Basics"}'
+```
 
 ## License
 

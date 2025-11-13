@@ -25,6 +25,8 @@ const Navbar = () => {
             {user && <Link to="/dashboard" className="text-gray-700 hover:text-purple-600 transition">Dashboard</Link>}
             <Link to="/jobs" className="text-gray-700 hover:text-purple-600 transition">Jobs</Link>
             <Link to="/resources" className="text-gray-700 hover:text-purple-600 transition">Resources</Link>
+            {user && <Link to="/resume-upload" className="text-gray-700 hover:text-purple-600 transition">Resume</Link>}
+            {user && <Link to="/interview-lab" className="text-gray-700 hover:text-purple-600 transition">Interview</Link>}
             {user && <Link to="/profile" className="text-gray-700 hover:text-purple-600 transition">Profile</Link>}
             <Link to="/ai-lab" className="text-gray-700 hover:text-purple-600 transition">AI Lab</Link>
             <Link to="/contact" className="text-gray-700 hover:text-purple-600 transition">Contact</Link>

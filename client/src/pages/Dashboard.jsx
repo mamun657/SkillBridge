@@ -5,6 +5,7 @@ import Card from '../components/Card';
 import Tag from '../components/Tag';
 import ProgressBar from '../components/ProgressBar';
 import SkillPill from '../components/SkillPill';
+import Recommendations from '../components/Recommendations';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000';
 
@@ -66,6 +67,16 @@ const Dashboard = () => {
             <div className="text-sm text-gray-600 mt-1">Badges Earned</div>
           </div>
         </Card>
+      </div>
+
+      <div className="grid grid-cols-1 gap-6 mb-8">
+        <div className="bg-white border border-gray-100 rounded-xl p-6 shadow-sm">
+          <h2 className="text-xl font-semibold mb-3">AI Recommendations</h2>
+          <p className="text-sm text-gray-600 mb-4">
+            We score jobs based on your skills. Upload a resume or update your profile to get better matches.
+          </p>
+          <Recommendations userSkills={user?.skills || []} />
+        </div>
       </div>
 
       <div className="grid lg:grid-cols-3 gap-6">

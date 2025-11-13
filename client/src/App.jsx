@@ -15,6 +15,8 @@ import Contact from "./pages/Contact";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import PrivateRoute from "./components/PrivateRoute";
+import ResumeUpload from "./pages/ResumeUpload";
+import InterviewLab from "./pages/InterviewLab";
 
 function App() {
   return (
@@ -48,6 +50,22 @@ function App() {
               element={
                 <PrivateRoute>
                   <Profile />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/resume-upload"
+              element={
+                <PrivateRoute>
+                  <ResumeUpload />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/interview-lab"
+              element={
+                <PrivateRoute>
+                  <InterviewLab />
                 </PrivateRoute>
               }
             />
